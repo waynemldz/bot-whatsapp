@@ -1,8 +1,10 @@
 const axios = require('axios');
-const { Client } = require('whatsapp-web.js');
+const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
-const client = new Client();
+const client = new Client({
+    authStrategy: new LocalAuth()
+});
 
 client.on('qr', (qr) => {
     console.log('QR CODE GERADO!\n');
@@ -28,6 +30,7 @@ client.on('message', async (message) => {
         const response = await axios.post(
             'http://127.0.0.1:8000/message',
             {
+                user_id: message.from,
                 message: message.body
             }
         );

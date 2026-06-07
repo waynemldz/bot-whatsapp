@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from database import SessionLocal, Usuario
 
 app = FastAPI()
+db = SessionLocal()
 user_states = {}
+user_names = {}
 
 class Message(BaseModel):
+    user_id: str
     message:str
 
 @app.get("/")
@@ -14,13 +18,46 @@ def home():
 @app.post("/message")
 def receive_message(data: Message):
 
-    user_id = "usuario_teste"
+    user_id = data.user_id
+    print("Usuário:", user_id)
 
     user_message = data.message.lower().strip()
 
+    if user_message.startswith("meu nome é"):
+
+        nome = data.message[11:].strip()
+
+        usuario = db.get(Usuario, user_id)
+
+        if usuario is None:
+
+            usuario = Usuario(
+                user_id=user_id,
+                nome=nome
+            )
+
+            db.add(usuario)
+
+        else:
+
+            usuario.nome = nome
+
+        db.commit()
+
+        return {
+            "response": f"Prazer, {nome}! Vou me lembrar do seu nome."
+        }
+
     current_state = user_states.get(user_id)
 
-    if user_message == "oi":
+    if user_message in [
+        "oi",
+        "olá",
+        "ola",
+        "bom dia",
+        "boa tarde",
+        "opa"
+    ]:
 
         user_states[user_id] = "menu"
 
@@ -67,6 +104,20 @@ def receive_message(data: Message):
                 f"Entendi seu problema: {data.message}. "
                 "Nossa equipe responderá em breve."
             )
+        }
+    
+    if user_message == "qual é meu nome?":
+
+        usuario = db.get(Usuario, user_id)
+
+        if usuario:
+
+            return {
+                "response": f"Seu nome é {usuario.nome}."
+            }
+        
+        return {
+            "response": "Você ainda não me disse seu nome."
         }
 
     return {
