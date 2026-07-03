@@ -1,6 +1,18 @@
-.env
-venv/
+# Python
 .venv/
-node_modules/
-.whatsapp_auth/
+venv/
 __pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# WhatsApp session/cache
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Environment
+.env
+
+# Database (dev)
+database.db
