@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine, Column, String
 from sqlalchemy.orm import declarative_base, sessionmaker
+from app.config.settings import settings
 
-engine = create_engine("sqlite:///database.db")
+engine = create_engine(settings.DATABASE_URL)
 
 Base = declarative_base()
 
