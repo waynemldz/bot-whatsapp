@@ -1,4 +1,5 @@
-from database import SessionLocal, Usuario
+from database import SessionLocal
+from app.models.user import Usuario
 
 db = SessionLocal()
 
