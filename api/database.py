@@ -9,7 +9,8 @@ Base = declarative_base()
 
 SessionLocal = sessionmaker(bind=engine)
 
-# Importa os modelos para que o SQLAlchemy os registre
+# Importa os modelos após criar o Base
 from app.models.user import Usuario
+from app.models.conversation_state import ConversationState
 
 Base.metadata.create_all(bind=engine)

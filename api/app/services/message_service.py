@@ -1,7 +1,5 @@
 from app.repositories.user_repository import get_user_by_id, save_user
-
-
-user_states = {}
+from app.services.conversation_state_service import conversation_state_service
 
 
 def process_message(user_id: str, message: str):
@@ -16,7 +14,7 @@ def process_message(user_id: str, message: str):
 
         return f"Prazer, {nome}! Vou me lembrar do seu nome."
 
-    current_state = user_states.get(user_id)
+    current_state = conversation_state_service.get(user_id)
 
     if user_message in [
         "oi",
@@ -27,7 +25,7 @@ def process_message(user_id: str, message: str):
         "opa"
     ]:
 
-        user_states[user_id] = "menu"
+        conversation_state_service.set(user_id, "menu")
 
         return (
             "Olá! Seja bem-vindo à Assistente Virtual de Whatsapp do Wayne (em fase de desenvolvimento).\n"
@@ -41,25 +39,25 @@ def process_message(user_id: str, message: str):
 
         if user_message == "1":
 
-            user_states[user_id] = "precos"
+            conversation_state_service.set(user_id, "precos")
 
             return "Nosso plano básico custa R$99 por mês."
 
         elif user_message == "2":
 
-            user_states[user_id] = "suporte"
+            conversation_state_service.set(user_id, "suporte")
 
             return "Descreva seu problema em uma única mensagem."
 
         elif user_message == "3":
 
-            user_states[user_id] = "agendamento"
+            conversation_state_service.set(user_id, "agendamento")
 
             return "Qual horário você deseja?"
 
     if current_state == "suporte":
 
-        user_states[user_id] = None
+        conversation_state_service.clear(user_id)
 
         return (
             f"Entendi seu problema: {message}. "
