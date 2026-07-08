@@ -1,18 +1,20 @@
+from urllib import response
+
 from app.repositories.user_repository import get_user_by_id, save_user
 from app.services.conversation_state_service import conversation_state_service
+from app.commands.command_dispatcher import CommandDispatcher
+
+dispatcher = CommandDispatcher()
 
 
 def process_message(user_id: str, message: str):
-
+    
     user_message = message.lower().strip()
 
-    if user_message.startswith("meu nome é"):
+    response = dispatcher.dispatch(user_id, message)
 
-        nome = message[11:].strip()
-
-        save_user(user_id, nome)
-
-        return f"Prazer, {nome}! Vou me lembrar do seu nome."
+    if response:
+        return response
 
     current_state = conversation_state_service.get(user_id)
 
@@ -63,14 +65,5 @@ def process_message(user_id: str, message: str):
             f"Entendi seu problema: {message}. "
             "Nossa equipe responderá em breve."
         )
-
-    if user_message == "qual é meu nome?":
-
-        usuario = get_user_by_id(user_id)
-
-        if usuario:
-            return f"Seu nome é {usuario.nome}."
-
-        return "Você ainda não me disse seu nome."
 
     return "Digite 'oi' para iniciar."

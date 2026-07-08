@@ -1,18 +1,13 @@
 from app.commands.greeting_command import GreetingCommand
 from app.commands.name_command import NameCommand
-from app.commands.menu_command import MenuCommand
-from app.commands.support_command import SupportCommand
 
 
 class CommandDispatcher:
 
     def __init__(self):
-
         self.commands = [
             NameCommand(),
-            GreetingCommand(),
-            MenuCommand(),
-            SupportCommand(),
+            GreetingCommand()
         ]
 
     def dispatch(self, user_id: str, message: str):
@@ -22,4 +17,4 @@ class CommandDispatcher:
             if command.can_handle(user_id, message):
                 return command.handle(user_id, message)
 
-        return "Digite 'oi' para iniciar."
+        return None
