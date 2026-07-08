@@ -1,13 +1,17 @@
 from app.commands.greeting_command import GreetingCommand
 from app.commands.name_command import NameCommand
-
+from app.commands.menu_command import MenuCommand
+from app.commands.support_command import SupportCommand
 
 class CommandDispatcher:
 
     def __init__(self):
+
         self.commands = [
             NameCommand(),
-            GreetingCommand()
+            GreetingCommand(),
+            MenuCommand(),
+            SupportCommand(),
         ]
 
     def dispatch(self, user_id: str, message: str):

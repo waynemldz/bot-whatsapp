@@ -37,25 +37,6 @@ def process_message(user_id: str, message: str):
             "3 - Agendamento"
         )
 
-    if current_state == "menu":
-
-        if user_message == "1":
-
-            conversation_state_service.set(user_id, "precos")
-
-            return "Nosso plano básico custa R$99 por mês."
-
-        elif user_message == "2":
-
-            conversation_state_service.set(user_id, "suporte")
-
-            return "Descreva seu problema em uma única mensagem."
-
-        elif user_message == "3":
-
-            conversation_state_service.set(user_id, "agendamento")
-
-            return "Qual horário você deseja?"
 
     if current_state == "suporte":
 
