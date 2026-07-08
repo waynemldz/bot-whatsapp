@@ -1,4 +1,5 @@
 from app.commands.command_dispatcher import CommandDispatcher
+from app.services.ai_service import ask_ai
 
 dispatcher = CommandDispatcher()
 
@@ -10,7 +11,4 @@ def process_message(user_id: str, message: str):
     if response:
         return response
 
-    return (
-        "Desculpe, não entendi sua mensagem.\n\n"
-        "Digite 'oi' para iniciar o atendimento."
-    )
+    return ask_ai(message)
