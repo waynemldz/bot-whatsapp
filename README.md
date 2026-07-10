@@ -63,6 +63,42 @@ The project was designed following a service-oriented architecture using the Rep
 
 ---
 
+## 🏗️ Architecture
+
+```text
+                         WhatsApp User
+                               │
+                               ▼
+                  whatsapp-web.js (Node.js)
+                               │
+                               ▼
+                         FastAPI API
+                               │
+                     Message Service
+                               │
+                     Command Dispatcher
+        ┌──────────────┼──────────────┐
+        ▼              ▼              ▼
+  Menu Command   Support Command  Schedule Command
+        │              │              │
+        └──────────────┼──────────────┘
+                       ▼
+                 Conversation State
+                       │
+             ┌─────────┴─────────┐
+             ▼                   ▼
+       Business Logic      Google Gemini
+             │                   │
+             └─────────┬─────────┘
+                       ▼
+                  SQLAlchemy ORM
+                       │
+                       ▼
+                     SQLite
+```
+
+---
+
 ## 📂 Project Structure
 
 ```text
