@@ -18,7 +18,7 @@ AI-powered WhatsApp virtual assistant built with **FastAPI**, **Google Gemini** 
 ## 📸 Preview
 
 <p align="center">
-    <img src="assets/demo.gif" width="900">
+    <img src="assets/demo.gif" alt="Nexa demo" width="900">
 </p>
 
 ---
@@ -26,7 +26,7 @@ AI-powered WhatsApp virtual assistant built with **FastAPI**, **Google Gemini** 
 ## 📷 API Documentation
 
 <p align="center">
-    <img src="assets/demo.gif" alt="Nexa demo" width="900">
+    <img src="assets/swagger.png" alt="Swagger Documentation" width="900">
 </p>
 
 ---
@@ -250,6 +250,18 @@ Swagger documentation:
 ```
 http://localhost:8000/docs
 ```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file inside the `api` folder:
+
+```env
+GEMINI_API_KEY=your_api_key
+```
+
+Replace `your_api_key` with your Google Gemini API key before running the project.
 
 ---
 
