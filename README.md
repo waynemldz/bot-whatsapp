@@ -17,7 +17,17 @@ AI-powered WhatsApp virtual assistant built with **FastAPI**, **Google Gemini** 
 
 ## 📸 Preview
 
-> _GIF do projeto em funcionamento será adicionado aqui._
+<p align="center">
+    <img src="assets/demo.gif" width="900">
+</p>
+
+---
+
+## 📷 API Documentation
+
+<p align="center">
+    <img src="assets/swagger.png" width="900">
+</p>
 
 ---
 
