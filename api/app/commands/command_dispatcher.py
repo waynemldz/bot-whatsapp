@@ -5,6 +5,7 @@ from app.commands.support_command import SupportCommand
 from app.commands.price_command import PriceCommand
 from app.commands.schedule_command import ScheduleCommand
 from app.commands.human_command import HumanCommand
+from app.commands.end_human_command import EndHumanCommand
 
 class CommandDispatcher:
 
@@ -18,6 +19,7 @@ class CommandDispatcher:
             PriceCommand(),
             ScheduleCommand(),
             HumanCommand(),
+            EndHumanCommand(),
         ]
 
     def dispatch(self, user_id: str, message: str):
