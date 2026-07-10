@@ -195,7 +195,7 @@ http://localhost:8000/docs
 Wayne Gabriel
 
 GitHub:
-https://github.com/seu-usuario
+https://github.com/waynemldz
 
 LinkedIn:
-https://www.linkedin.com/in/seu-linkedin
+https://www.linkedin.com/in/gabrielmldz
