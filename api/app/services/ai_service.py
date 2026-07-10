@@ -13,7 +13,6 @@ client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
 def ask_ai(user_id: str, user_message: str) -> str:
 
-    print("4 - entrou na IA")
     history = reversed(get_last_messages(user_id))
 
     company_context = get_company_context()
