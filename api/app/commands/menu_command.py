@@ -1,5 +1,6 @@
 import re
 import unicodedata
+from difflib import get_close_matches
 
 from app.commands.base_command import BaseCommand
 from app.services.conversation_state_service import conversation_state_service
@@ -22,6 +23,24 @@ def normalize_text(text: str) -> str:
 
 
 class MenuCommand(BaseCommand):
+
+    def matches_trigger(
+        self,
+        message: str,
+        triggers: set[str],
+        cutoff: float = 0.80
+    ) -> bool:
+        if message in triggers:
+            return True
+
+        matches = get_close_matches(
+            message,
+            triggers,
+            n=1,
+            cutoff=cutoff
+        )
+
+        return bool(matches)
 
     price_triggers = {
         "1",
@@ -50,25 +69,26 @@ class MenuCommand(BaseCommand):
         "agendar",
         "agendamento",
         "agendar conversa",
+        "agendar uma conversa",
         "quero agendar",
         "marcar reuniao",
         "marcar conversa",
-        "falar com especialista",
+        "falar com especialista",  
     }
 
     def can_handle(self, user_id: str, message: str) -> bool:
         normalized_message = normalize_text(message)
 
         return (
-            normalized_message in self.price_triggers
-            or normalized_message in self.support_triggers
-            or normalized_message in self.schedule_triggers
+            self.matches_trigger(normalized_message, self.price_triggers)
+            or self.matches_trigger(normalized_message, self.support_triggers)
+            or self.matches_trigger(normalized_message, self.schedule_triggers)
         )
 
     def handle(self, user_id: str, message: str) -> str:
         normalized_message = normalize_text(message)
 
-        if normalized_message in self.price_triggers:
+        if self.matches_trigger(normalized_message, self.price_triggers):
             conversation_state_service.set(user_id, "menu")
 
             return (
@@ -83,7 +103,7 @@ class MenuCommand(BaseCommand):
                 "Estou à disposição para ajudar."
             )
 
-        if normalized_message in self.support_triggers:
+        if self.matches_trigger(normalized_message, self.support_triggers):
             conversation_state_service.set(user_id, "support")
 
             return (
@@ -91,9 +111,11 @@ class MenuCommand(BaseCommand):
                 "Nossa equipe receberá sua solicitação."
             )
 
-        conversation_state_service.set(user_id, "schedule")
+        if self.matches_trigger(normalized_message, self.schedule_triggers):
+            conversation_state_service.set(user_id, "schedule")
 
-        return (
-            "Qual data e horário você deseja para o agendamento?\n\n"
-            'Exemplo: "15/07 às 14h".'
-        )
+            return (
+                "Qual data e horário você deseja para o agendamento?\n\n"
+                'Exemplo: "15/07 às 14h".'
+            )
+        return ""

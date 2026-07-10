@@ -123,12 +123,8 @@ def process_message(user_id: str, message: str):
             user_id
         )
 
-        ticket = ticket_service.create(user_id)
-        conversation_state_service.set(user_id, "human")
-
         return (
-            "⚠️ No momento não consegui processar sua solicitação.\n\n"
-            "Encaminhei sua conversa para um atendente, "
-            "que continuará o atendimento assim que possível.\n\n"
-            f"Protocolo: #{ticket.id}"
+            "No momento não consegui responder essa mensagem. 😊\n\n"
+            "Posso ajudar com informações sobre nossos serviços, preços, "
+            "suporte ou agendamento."
         )
