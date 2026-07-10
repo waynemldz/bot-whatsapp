@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
+
 from app.config.settings import settings
 
 engine = create_engine(settings.DATABASE_URL)
@@ -13,5 +14,6 @@ SessionLocal = sessionmaker(bind=engine)
 from app.models.user import Usuario
 from app.models.conversation_state import ConversationState
 from app.models.message import Message
+from app.models.ticket import Ticket
 
 Base.metadata.create_all(bind=engine)

@@ -1,5 +1,6 @@
 from app.commands.base_command import BaseCommand
 from app.services.conversation_state_service import conversation_state_service
+from app.services.ticket_service import ticket_service
 
 
 class HumanCommand(BaseCommand):
@@ -16,11 +17,12 @@ class HumanCommand(BaseCommand):
         return message.lower().strip() in self.triggers
 
     def handle(self, user_id: str, message: str) -> str:
+        ticket = ticket_service.create(user_id)
 
         conversation_state_service.set(user_id, "human")
 
         return (
             "Perfeito! 😊\n\n"
-            "Vou encaminhar sua conversa para um atendente.\n"
-            "A partir de agora, suas mensagens serão respondidas pela nossa equipe."
+            f"Seu atendimento foi registrado sob o protocolo #{ticket.id}.\n"
+            "Vou encaminhar sua conversa para um atendente."
         )
