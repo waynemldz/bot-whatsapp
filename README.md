@@ -23,14 +23,6 @@ AI-powered WhatsApp virtual assistant built with **FastAPI**, **Google Gemini** 
 
 ---
 
-## 📷 API Documentation
-
-<p align="center">
-    <img src="assets/swagger.png" alt="Swagger Documentation" width="900">
-</p>
-
----
-
 ## 📌 Overview
 
 Nexa is a virtual assistant for WhatsApp that combines predefined conversation flows with generative AI to provide a more natural customer service experience.
@@ -179,36 +171,6 @@ If no command matches the user's message, the request is forwarded to Google Gem
 
 ---
 
-## 📖 Conversation Flow
-
-```
-User
-
-↓
-
-Main Menu
-
-↓
-
-Pricing
-Support
-Scheduling
-
-↓
-
-If necessary
-
-↓
-
-AI (Gemini)
-
-↓
-
-Human Support
-```
-
----
-
 ## 🧠 AI
 
 The assistant uses Google Gemini together with a local knowledge base (`company.txt`).
@@ -253,6 +215,14 @@ http://localhost:8000/docs
 
 ---
 
+## 📷 API Documentation
+
+<p align="center">
+    <img src="assets/swagger.png" alt="Swagger Documentation" width="900">
+</p>
+
+---
+
 ## 🔑 Environment Variables
 
 Create a `.env` file inside the `api` folder:
@@ -279,10 +249,7 @@ Replace `your_api_key` with your Google Gemini API key before running the projec
 
 ## 👨‍💻 Author
 
-Wayne Gabriel
+**Wayne Gabriel**
 
-GitHub:
-https://github.com/waynemldz
-
-LinkedIn:
-https://www.linkedin.com/in/gabrielmldz
+- GitHub: https://github.com/waynemldz
+- LinkedIn: https://www.linkedin.com/in/gabrielmldz
